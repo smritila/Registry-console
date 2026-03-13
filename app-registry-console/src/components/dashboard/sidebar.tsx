@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { LucideIcon } from "lucide-react";
 import {
   ChevronDown,
   ChevronRight,
@@ -11,7 +12,20 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
-const menuItems = [
+interface ChildItem {
+  label: string;
+  active: boolean;
+}
+
+interface MenuItem {
+  label: string;
+  icon: LucideIcon;
+  expandable: boolean;
+  expanded?: boolean;
+  children?: ChildItem[];
+}
+
+const menuItems: MenuItem[] = [
   {
     label: "Performance",
     icon: BarChart3,
@@ -29,9 +43,9 @@ const menuItems = [
 ];
 
 export function Sidebar() {
-  const [expandedItems, setExpandedItems] = useState(["Performance"]);
+  const [expandedItems, setExpandedItems] = useState<string[]>(["Performance"]);
 
-  const toggleExpand = (label) => {
+  const toggleExpand = (label: string) => {
     setExpandedItems((prev) =>
       prev.includes(label)
         ? prev.filter((item) => item !== label)

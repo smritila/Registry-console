@@ -1,5 +1,21 @@
 import { cn } from "@/lib/utils";
 
+interface CircularProgressProps {
+  value: number;
+  max: number;
+  size?: number;
+  strokeWidth?: number;
+  className?: string;
+  color?: "green" | "red" | "yellow" | "blue";
+}
+
+const colorClasses: Record<string, string> = {
+  green: "stroke-emerald-500",
+  red: "stroke-red-500",
+  yellow: "stroke-amber-500",
+  blue: "stroke-blue-500"
+};
+
 export function CircularProgress({
   value,
   max,
@@ -7,18 +23,11 @@ export function CircularProgress({
   strokeWidth = 3,
   className,
   color = "green"
-}) {
+}: CircularProgressProps) {
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
   const percentage = max > 0 ? (value / max) * 100 : 0;
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
-
-  const colorClasses = {
-    green: "stroke-emerald-500",
-    red: "stroke-red-500",
-    yellow: "stroke-amber-500",
-    blue: "stroke-blue-500"
-  };
 
   return (
     <div

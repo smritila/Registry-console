@@ -12,22 +12,32 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const tabs = ["COMPLIANCE", "OPERATIONS", "RISK"];
+interface MainContentProps {
+  onOpenSidebar: () => void;
+  onOpenPanel: () => void;
+}
 
-const gateFilters = [
+const tabs = ["COMPLIANCE", "OPERATIONS", "RISK"] as const;
+
+interface FilterItem {
+  label: string;
+  active: boolean;
+}
+
+const gateFilters: FilterItem[] = [
   { label: "BLOCKED", active: false },
   { label: "AT RISK", active: false },
   { label: "VERIFIED", active: true }
 ];
 
-const lifecycleFilters = [
+const lifecycleFilters: FilterItem[] = [
   { label: "ACTIVE", active: true },
   { label: "DORMANT", active: false },
   { label: "INACTIVE", active: false }
 ];
 
-export function MainContent({ onOpenSidebar, onOpenPanel }) {
-  const [activeTab, setActiveTab] = useState("COMPLIANCE");
+export function MainContent({ onOpenSidebar, onOpenPanel }: MainContentProps) {
+  const [activeTab, setActiveTab] = useState<string>("COMPLIANCE");
 
   return (
     <main className="flex-1 flex flex-col min-w-0 bg-background">
@@ -68,7 +78,6 @@ export function MainContent({ onOpenSidebar, onOpenPanel }) {
           </nav>
 
           <div className="flex items-center gap-2">
-            {/* Search */}
             <div className="relative hidden sm:block">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
@@ -76,14 +85,10 @@ export function MainContent({ onOpenSidebar, onOpenPanel }) {
                 className="pl-9 w-48 lg:w-64 bg-input border-border text-foreground placeholder:text-muted-foreground"
               />
             </div>
-
-            {/* More Filters */}
             <Button variant="outline" className="hidden sm:flex">
               <SlidersHorizontal className="w-4 h-4" />
               MORE FILTERS
             </Button>
-
-            {/* Mobile Panel Toggle */}
             <button
               onClick={onOpenPanel}
               className="xl:hidden p-2 hover:bg-muted rounded-lg"
@@ -115,7 +120,6 @@ export function MainContent({ onOpenSidebar, onOpenPanel }) {
       {/* Filters */}
       <div className="border-b border-border px-4 lg:px-6 py-3">
         <div className="flex flex-wrap items-center gap-3">
-          {/* Gate Status */}
           <div className="flex items-center gap-2">
             <span className="text-xs text-muted-foreground font-medium">
               GATE STATUS:
@@ -136,8 +140,6 @@ export function MainContent({ onOpenSidebar, onOpenPanel }) {
               ))}
             </div>
           </div>
-
-          {/* Lifecycle */}
           <div className="flex items-center gap-2">
             <span className="text-xs text-muted-foreground font-medium">
               LIFECYCLE:

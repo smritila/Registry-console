@@ -3,7 +3,28 @@ import { CircularProgress } from "@/components/circular-progress";
 import { cn } from "@/lib/utils";
 import { Flag } from "lucide-react";
 
-const entities = [
+interface MetricValue {
+  value: number;
+  max: number;
+}
+
+interface Entity {
+  id: string;
+  score: number;
+  name: string;
+  code: string;
+  details: string;
+  status: "ACTIVE" | "DORMANT" | "INACTIVE";
+  compliance: MetricValue;
+  social: MetricValue;
+  risk: MetricValue;
+  assets: MetricValue;
+  gateStatus: "VERIFIED" | "AT RISK" | "BLOCKED";
+  flagged?: boolean;
+  selected?: boolean;
+}
+
+const entities: Entity[] = [
   {
     id: "1",
     score: 92,
@@ -47,31 +68,28 @@ const entities = [
   }
 ];
 
-const getScoreColor = (score) => {
+const getScoreColor = (score: number): string => {
   if (score >= 80) return "bg-emerald-500";
   if (score >= 60) return "bg-amber-500";
   return "bg-red-500";
 };
 
-const getStatusBadge = (status) => {
-  const styles = {
-    ACTIVE: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
-    DORMANT: "bg-muted text-muted-foreground border-border",
-    INACTIVE: "bg-muted text-muted-foreground border-border"
-  };
-  return styles[status];
+const statusStyles: Record<Entity["status"], string> = {
+  ACTIVE: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+  DORMANT: "bg-muted text-muted-foreground border-border",
+  INACTIVE: "bg-muted text-muted-foreground border-border"
 };
 
-const getGateStatusBadge = (status) => {
-  const styles = {
-    VERIFIED: "bg-emerald-500 text-white",
-    "AT RISK": "bg-amber-500 text-white",
-    BLOCKED: "bg-red-500 text-white"
-  };
-  return styles[status];
+const gateStatusStyles: Record<Entity["gateStatus"], string> = {
+  VERIFIED: "bg-emerald-500 text-white",
+  "AT RISK": "bg-amber-500 text-white",
+  BLOCKED: "bg-red-500 text-white"
 };
 
-const getProgressColor = (value, max) => {
+const getProgressColor = (
+  value: number,
+  max: number
+): "green" | "yellow" | "red" => {
   const percentage = (value / max) * 100;
   if (percentage >= 80) return "green";
   if (percentage >= 50) return "yellow";
@@ -140,7 +158,7 @@ export function EntityTable() {
                   variant="outline"
                   className={cn(
                     "text-[10px] px-1.5 py-0",
-                    getStatusBadge(entity.status)
+                    statusStyles[entity.status]
                   )}
                 >
                   {entity.status}
@@ -151,7 +169,7 @@ export function EntityTable() {
               </p>
             </div>
 
-            {/* Progress Circles - Hidden on mobile, shown in a different layout */}
+            {/* Progress Circles */}
             <div className="hidden md:flex justify-center">
               <CircularProgress
                 value={entity.compliance.value}
@@ -246,7 +264,7 @@ export function EntityTable() {
               <Badge
                 className={cn(
                   "text-[10px] font-semibold",
-                  getGateStatusBadge(entity.gateStatus)
+                  gateStatusStyles[entity.gateStatus]
                 )}
               >
                 {entity.gateStatus}

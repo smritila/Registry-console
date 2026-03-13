@@ -9,7 +9,12 @@ import {
   X
 } from "lucide-react";
 
-export function InspectionPanel({ onClose, className }) {
+interface InspectionPanelProps {
+  onClose?: () => void;
+  className?: string;
+}
+
+export function InspectionPanel({ onClose, className }: InspectionPanelProps) {
   return (
     <div className={className}>
       <ScrollArea className="h-full">
