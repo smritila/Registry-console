@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,7 +8,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Menu,
-  PanelRightOpen,
+  PanelRightOpen
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -19,13 +17,13 @@ const tabs = ["COMPLIANCE", "OPERATIONS", "RISK"];
 const gateFilters = [
   { label: "BLOCKED", active: false },
   { label: "AT RISK", active: false },
-  { label: "VERIFIED", active: true },
+  { label: "VERIFIED", active: true }
 ];
 
 const lifecycleFilters = [
   { label: "ACTIVE", active: true },
   { label: "DORMANT", active: false },
-  { label: "INACTIVE", active: false },
+  { label: "INACTIVE", active: false }
 ];
 
 export function MainContent({ onOpenSidebar, onOpenPanel }) {

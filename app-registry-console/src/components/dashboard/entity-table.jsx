@@ -1,5 +1,3 @@
-"use client";
-
 import { Badge } from "@/components/ui/badge";
 import { CircularProgress } from "@/components/circular-progress";
 import { cn } from "@/lib/utils";
@@ -19,7 +17,7 @@ const entities = [
     assets: { value: 18, max: 24 },
     gateStatus: "VERIFIED",
     flagged: true,
-    selected: true,
+    selected: true
   },
   {
     id: "2",
@@ -32,7 +30,7 @@ const entities = [
     social: { value: 18, max: 30 },
     risk: { value: 13, max: 15 },
     assets: { value: 22, max: 24 },
-    gateStatus: "AT RISK",
+    gateStatus: "AT RISK"
   },
   {
     id: "3",
@@ -45,8 +43,8 @@ const entities = [
     social: { value: 9, max: 30 },
     risk: { value: 1, max: 15 },
     assets: { value: 0, max: 24 },
-    gateStatus: "BLOCKED",
-  },
+    gateStatus: "BLOCKED"
+  }
 ];
 
 const getScoreColor = (score) => {
@@ -59,7 +57,7 @@ const getStatusBadge = (status) => {
   const styles = {
     ACTIVE: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
     DORMANT: "bg-muted text-muted-foreground border-border",
-    INACTIVE: "bg-muted text-muted-foreground border-border",
+    INACTIVE: "bg-muted text-muted-foreground border-border"
   };
   return styles[status];
 };
@@ -68,7 +66,7 @@ const getGateStatusBadge = (status) => {
   const styles = {
     VERIFIED: "bg-emerald-500 text-white",
     "AT RISK": "bg-amber-500 text-white",
-    BLOCKED: "bg-red-500 text-white",
+    BLOCKED: "bg-red-500 text-white"
   };
   return styles[status];
 };
@@ -119,7 +117,9 @@ export function EntityTable() {
 
             {/* Score */}
             <div className="flex md:block items-center gap-2">
-              <span className="md:hidden text-xs text-muted-foreground">Score:</span>
+              <span className="md:hidden text-xs text-muted-foreground">
+                Score:
+              </span>
               <div
                 className={cn(
                   "w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg",
@@ -133,10 +133,15 @@ export function EntityTable() {
             {/* Entity Details */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-medium text-foreground">{entity.name}</span>
+                <span className="font-medium text-foreground">
+                  {entity.name}
+                </span>
                 <Badge
                   variant="outline"
-                  className={cn("text-[10px] px-1.5 py-0", getStatusBadge(entity.status))}
+                  className={cn(
+                    "text-[10px] px-1.5 py-0",
+                    getStatusBadge(entity.status)
+                  )}
                 >
                   {entity.status}
                 </Badge>
@@ -151,7 +156,10 @@ export function EntityTable() {
               <CircularProgress
                 value={entity.compliance.value}
                 max={entity.compliance.max}
-                color={getProgressColor(entity.compliance.value, entity.compliance.max)}
+                color={getProgressColor(
+                  entity.compliance.value,
+                  entity.compliance.max
+                )}
               />
             </div>
             <div className="hidden md:flex justify-center">
@@ -179,25 +187,37 @@ export function EntityTable() {
             {/* Mobile Progress Grid */}
             <div className="md:hidden grid grid-cols-4 gap-2 mt-2">
               <div className="flex flex-col items-center">
-                <span className="text-[10px] text-muted-foreground mb-1">Compliance</span>
+                <span className="text-[10px] text-muted-foreground mb-1">
+                  Compliance
+                </span>
                 <CircularProgress
                   value={entity.compliance.value}
                   max={entity.compliance.max}
                   size={36}
-                  color={getProgressColor(entity.compliance.value, entity.compliance.max)}
+                  color={getProgressColor(
+                    entity.compliance.value,
+                    entity.compliance.max
+                  )}
                 />
               </div>
               <div className="flex flex-col items-center">
-                <span className="text-[10px] text-muted-foreground mb-1">Social</span>
+                <span className="text-[10px] text-muted-foreground mb-1">
+                  Social
+                </span>
                 <CircularProgress
                   value={entity.social.value}
                   max={entity.social.max}
                   size={36}
-                  color={getProgressColor(entity.social.value, entity.social.max)}
+                  color={getProgressColor(
+                    entity.social.value,
+                    entity.social.max
+                  )}
                 />
               </div>
               <div className="flex flex-col items-center">
-                <span className="text-[10px] text-muted-foreground mb-1">Risk</span>
+                <span className="text-[10px] text-muted-foreground mb-1">
+                  Risk
+                </span>
                 <CircularProgress
                   value={entity.risk.value}
                   max={entity.risk.max}
@@ -206,19 +226,29 @@ export function EntityTable() {
                 />
               </div>
               <div className="flex flex-col items-center">
-                <span className="text-[10px] text-muted-foreground mb-1">Assets</span>
+                <span className="text-[10px] text-muted-foreground mb-1">
+                  Assets
+                </span>
                 <CircularProgress
                   value={entity.assets.value}
                   max={entity.assets.max}
                   size={36}
-                  color={getProgressColor(entity.assets.value, entity.assets.max)}
+                  color={getProgressColor(
+                    entity.assets.value,
+                    entity.assets.max
+                  )}
                 />
               </div>
             </div>
 
             {/* Gate Status */}
             <div className="flex md:justify-center mt-2 md:mt-0">
-              <Badge className={cn("text-[10px] font-semibold", getGateStatusBadge(entity.gateStatus))}>
+              <Badge
+                className={cn(
+                  "text-[10px] font-semibold",
+                  getGateStatusBadge(entity.gateStatus)
+                )}
+              >
                 {entity.gateStatus}
               </Badge>
             </div>

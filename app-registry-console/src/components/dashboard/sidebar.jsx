@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import {
   ChevronDown,
@@ -8,7 +6,7 @@ import {
   FileText,
   Settings,
   Users,
-  ShieldCheck,
+  ShieldCheck
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
@@ -22,12 +20,12 @@ const menuItems = [
     children: [
       { label: "Compliance Dashboard", active: true },
       { label: "Operations Dashboard", active: false },
-      { label: "Risk & Performance", active: false },
-    ],
+      { label: "Risk & Performance", active: false }
+    ]
   },
   { label: "Contractors", icon: Users, expandable: false },
   { label: "Reporting", icon: FileText, expandable: false },
-  { label: "Configuration", icon: Settings, expandable: false },
+  { label: "Configuration", icon: Settings, expandable: false }
 ];
 
 export function Sidebar() {
@@ -51,7 +49,9 @@ export function Sidebar() {
           </div>
           <div>
             <p className="text-xs font-semibold text-foreground">COMPLIANCE</p>
-            <p className="text-[10px] text-muted-foreground">EXECUTIVE REGISTRY</p>
+            <p className="text-[10px] text-muted-foreground">
+              EXECUTIVE REGISTRY
+            </p>
           </div>
         </div>
       </div>
@@ -59,7 +59,9 @@ export function Sidebar() {
       {/* Global Status */}
       <div className="p-4 border-b border-sidebar-border">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-xs text-muted-foreground font-medium">GLOBAL STATUS</span>
+          <span className="text-xs text-muted-foreground font-medium">
+            GLOBAL STATUS
+          </span>
           <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-medium">
             LIVE
           </span>
@@ -104,39 +106,42 @@ export function Sidebar() {
               onClick={() => item.expandable && toggleExpand(item.label)}
               className={cn(
                 "w-full flex items-center justify-between px-3 py-2 rounded-md text-sm text-foreground hover:bg-sidebar-accent transition-colors",
-                expandedItems.includes(item.label) && item.expandable && "bg-sidebar-accent"
+                expandedItems.includes(item.label) &&
+                  item.expandable &&
+                  "bg-sidebar-accent"
               )}
             >
               <div className="flex items-center gap-2">
                 <item.icon className="w-4 h-4 text-muted-foreground" />
                 <span>{item.label}</span>
               </div>
-              {item.expandable && (
-                expandedItems.includes(item.label) ? (
+              {item.expandable &&
+                (expandedItems.includes(item.label) ? (
                   <ChevronDown className="w-4 h-4 text-muted-foreground" />
                 ) : (
                   <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                )
-              )}
+                ))}
             </button>
 
-            {item.expandable && expandedItems.includes(item.label) && item.children && (
-              <div className="ml-6 mt-1 space-y-1">
-                {item.children.map((child) => (
-                  <button
-                    key={child.label}
-                    className={cn(
-                      "w-full text-left px-3 py-1.5 rounded-md text-sm transition-colors",
-                      child.active
-                        ? "text-foreground bg-sidebar-accent"
-                        : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent"
-                    )}
-                  >
-                    {child.label}
-                  </button>
-                ))}
-              </div>
-            )}
+            {item.expandable &&
+              expandedItems.includes(item.label) &&
+              item.children && (
+                <div className="ml-6 mt-1 space-y-1">
+                  {item.children.map((child) => (
+                    <button
+                      key={child.label}
+                      className={cn(
+                        "w-full text-left px-3 py-1.5 rounded-md text-sm transition-colors",
+                        child.active
+                          ? "text-foreground bg-sidebar-accent"
+                          : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent"
+                      )}
+                    >
+                      {child.label}
+                    </button>
+                  ))}
+                </div>
+              )}
           </div>
         ))}
       </nav>
@@ -151,8 +156,12 @@ export function Sidebar() {
             </AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-foreground truncate">Alexander Chen</p>
-            <p className="text-xs text-muted-foreground truncate">EXECUTIVE DIRECTOR</p>
+            <p className="text-sm font-medium text-foreground truncate">
+              Alexander Chen
+            </p>
+            <p className="text-xs text-muted-foreground truncate">
+              EXECUTIVE DIRECTOR
+            </p>
           </div>
         </div>
       </div>

@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@/lib/utils";
 
 export function CircularProgress({
@@ -8,7 +6,7 @@ export function CircularProgress({
   size = 40,
   strokeWidth = 3,
   className,
-  color = "green",
+  color = "green"
 }) {
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
@@ -19,11 +17,16 @@ export function CircularProgress({
     green: "stroke-emerald-500",
     red: "stroke-red-500",
     yellow: "stroke-amber-500",
-    blue: "stroke-blue-500",
+    blue: "stroke-blue-500"
   };
 
   return (
-    <div className={cn("relative inline-flex items-center justify-center", className)}>
+    <div
+      className={cn(
+        "relative inline-flex items-center justify-center",
+        className
+      )}
+    >
       <svg width={size} height={size} className="-rotate-90">
         <circle
           cx={size / 2}
@@ -44,7 +47,7 @@ export function CircularProgress({
           style={{
             strokeDasharray: circumference,
             strokeDashoffset,
-            transition: "stroke-dashoffset 0.5s ease",
+            transition: "stroke-dashoffset 0.5s ease"
           }}
         />
       </svg>

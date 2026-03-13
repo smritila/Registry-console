@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -8,7 +6,7 @@ import {
   Sparkles,
   FileCheck,
   Building2,
-  X,
+  X
 } from "lucide-react";
 
 export function InspectionPanel({ onClose, className }) {
