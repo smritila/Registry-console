@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { EntityTable } from "./entity-table";
 import {
   Search,
@@ -8,9 +9,12 @@ import {
   ChevronLeft,
   ChevronRight,
   Menu,
-  PanelRightOpen
+  PanelRightOpen,
+  Moon,
+  Sun
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/lib/theme-context";
 
 interface MainContentProps {
   onOpenSidebar: () => void;
@@ -38,6 +42,9 @@ const lifecycleFilters: FilterItem[] = [
 
 export function MainContent({ onOpenSidebar, onOpenPanel }: MainContentProps) {
   const [activeTab, setActiveTab] = useState<string>("COMPLIANCE");
+  const { theme, setTheme } = useTheme();
+  const activeTheme = theme === "system" ? "light" : theme;
+  const isLightTheme = activeTheme === "light";
 
   return (
     <main className="flex-1 flex flex-col min-w-0 bg-background">
@@ -78,6 +85,32 @@ export function MainContent({ onOpenSidebar, onOpenPanel }: MainContentProps) {
           </nav>
 
           <div className="flex items-center gap-2">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  aria-label={
+                    isLightTheme
+                      ? "Switch to dark theme"
+                      : "Switch to light theme"
+                  }
+                  onClick={() =>
+                    setTheme(isLightTheme ? "dark" : "light")
+                  }
+                >
+                  {isLightTheme ? (
+                    <Moon className="w-4 h-4" />
+                  ) : (
+                    <Sun className="w-4 h-4" />
+                  )}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                {isLightTheme ? "Switch to dark mode" : "Switch to light mode"}
+              </TooltipContent>
+            </Tooltip>
             <div className="relative hidden sm:block">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
