@@ -42,7 +42,11 @@ const menuItems: MenuItem[] = [
   { label: "Configuration", icon: Settings, expandable: false }
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  onLayoutChange?: (layout: string) => void;
+}
+
+export function Sidebar({ onLayoutChange }: SidebarProps) {
   const [expandedItems, setExpandedItems] = useState<string[]>(["Performance"]);
 
   const toggleExpand = (label: string) => {
@@ -158,6 +162,17 @@ export function Sidebar() {
               )}
           </div>
         ))}
+
+        {/* Compliance Audit Button */}
+        <div className="mt-4 pt-4 border-t border-sidebar-border">
+          <button
+            onClick={() => onLayoutChange?.("compliance-audit")}
+            className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm text-sidebar-foreground hover:bg-sidebar-accent transition-colors"
+          >
+            <FileText className="w-4 h-4 text-sidebar-foreground/70" />
+            <span>Compliance Audit</span>
+          </button>
+        </div>
       </nav>
 
       {/* User Profile */}

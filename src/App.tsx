@@ -2,12 +2,20 @@ import { useState } from "react";
 import { Sidebar } from "@/components/dashboard/sidebar";
 import { MainContent } from "@/components/dashboard/main-content";
 import { InspectionPanel } from "@/components/dashboard/inspection-panel";
+import ComplianceAudit from "@/components/compliance-audit/ComplianceAudit";
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 
+type LayoutType = "dashboard" | "compliance-audit";
+
 export default function RegistryConsolePage() {
+  const [currentLayout, setCurrentLayout] = useState<LayoutType>("compliance-audit");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
+
+  if (currentLayout === "compliance-audit") {
+    return <ComplianceAudit onBack={() => setCurrentLayout("dashboard")} />;
+  }
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
@@ -25,7 +33,7 @@ export default function RegistryConsolePage() {
         )}
       >
         <div className="relative h-full">
-          <Sidebar />
+          <Sidebar onLayoutChange={(layout) => setCurrentLayout(layout as LayoutType)} />
           <button
             onClick={() => setSidebarOpen(false)}
             className="absolute top-4 right-4 lg:hidden p-1 hover:bg-muted rounded"
