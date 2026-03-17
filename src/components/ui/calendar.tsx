@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import {
   Button,
   buttonVariants
-} from "@/app-registry-console/src/components/ui/button";
+} from "@/components/ui/button";
 
 function Calendar({
   className,
