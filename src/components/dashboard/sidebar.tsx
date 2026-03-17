@@ -43,7 +43,7 @@ const menuItems: MenuItem[] = [
 ];
 
 interface SidebarProps {
-  onLayoutChange?: (layout: string) => void;
+  onLayoutChange?: (layout: "dashboard" | "compliance-audit") => void;
 }
 
 export function Sidebar({ onLayoutChange }: SidebarProps) {

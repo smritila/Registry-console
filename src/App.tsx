@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sidebar } from "@/components/dashboard/sidebar";
 import { MainContent } from "@/components/dashboard/main-content";
 import { InspectionPanel } from "@/components/dashboard/inspection-panel";
@@ -8,13 +8,45 @@ import { X } from "lucide-react";
 
 type LayoutType = "dashboard" | "compliance-audit";
 
+function getLayoutFromPath(pathname: string): LayoutType {
+  return pathname === "/compliance-audit" ? "compliance-audit" : "dashboard";
+}
+
+function getPathForLayout(layout: LayoutType): string {
+  return layout === "compliance-audit" ? "/compliance-audit" : "/";
+}
+
 export default function RegistryConsolePage() {
-  const [currentLayout, setCurrentLayout] = useState<LayoutType>("compliance-audit");
+  const [currentLayout, setCurrentLayout] = useState<LayoutType>(() =>
+    getLayoutFromPath(window.location.pathname)
+  );
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
 
+  useEffect(() => {
+    const syncLayoutWithUrl = () => {
+      setCurrentLayout(getLayoutFromPath(window.location.pathname));
+    };
+
+    window.addEventListener("popstate", syncLayoutWithUrl);
+
+    return () => {
+      window.removeEventListener("popstate", syncLayoutWithUrl);
+    };
+  }, []);
+
+  const navigateToLayout = (layout: LayoutType) => {
+    const nextPath = getPathForLayout(layout);
+
+    if (window.location.pathname !== nextPath) {
+      window.history.pushState({}, "", nextPath);
+    }
+
+    setCurrentLayout(layout);
+  };
+
   if (currentLayout === "compliance-audit") {
-    return <ComplianceAudit onBack={() => setCurrentLayout("dashboard")} />;
+    return <ComplianceAudit onBack={() => navigateToLayout("dashboard")} />;
   }
 
   return (
@@ -33,7 +65,7 @@ export default function RegistryConsolePage() {
         )}
       >
         <div className="relative h-full">
-          <Sidebar onLayoutChange={(layout) => setCurrentLayout(layout as LayoutType)} />
+          <Sidebar onLayoutChange={navigateToLayout} />
           <button
             onClick={() => setSidebarOpen(false)}
             className="absolute top-4 right-4 lg:hidden p-1 hover:bg-muted rounded"
